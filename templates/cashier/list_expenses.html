@@ -1,0 +1,145 @@
+{% extends 'dashboard_base.html' %}
+
+{% block title %} User | List Expenditure {% endblock %}
+
+{% load static %}
+
+{% load humanize %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+
+
+<!-- Left sidebar menu start -->
+{% include 'partials/_LeftSideBar.html' %}
+<!-- Left sidebar menu end -->
+
+<main class="ttr-wrapper">
+    <div class="container-fluid">
+        <div class="db-breadcrumb">
+            <h4 class="breadcrumb-title">Hello! {{ user.username }} </h4>
+            <ul class="db-breadcrumb-list">
+                <li><a href="#"><i class="fa fa-home"></i>Home</a></li>
+                <li>Dashboard</li>
+            </ul>
+        </div>	
+
+        <!--Check if User is login and is also a staff and a superuser-->
+        {% if user.is_authenticated and user.is_staff and user.is_superuser %}
+
+        <div class="col-md-8">
+            <table class="table bg-white">
+                <thead class="bg-info text-white">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Remark</th>
+                    <th scope="col">Exp. Date</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for expenses in list_expenses %}
+                  <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td >{{ expenses.description }}</td>
+                    <td nowrap>{{ expenses.category }}</td>
+                    <td nowrap>N{{ expenses.amount | intcomma }}</td>
+                    <td >{{ expenses.Remarks }}</td>
+                    <td nowrap>{{ expenses.date }}</td>
+                    
+                    <td nowrap>
+                        <a class="btn btn-info btn-sm" href="#">Edit</a>
+                        <a class="btn btn-danger btn-sm" href="#">Delete</a>
+                    </td>
+                  </tr>
+                  {% endfor %}             
+                </tbody>
+              </table>
+
+              <div class="row">
+                <div class="col-md-12">
+                  {% if list_expenses.has_other_pages %}
+                  <ul class="pagination">
+                    {% if list_expenses.has_previous %}
+                    <li class="page-item">
+                      <a href="?page={{list_expenses.previous_page_number}}" class="page-link">
+                        &laquo;
+                      </a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                      <a class="page-link">
+                        &laquo;
+                      </a>
+                    </li>
+                    {% endif %}
+                    {% for i in list_expenses.paginator.page_range %}
+        
+                    {% if list_expenses.number == i %}
+        
+                    <li class="page-item active">
+                      <a  class="page-link">
+                        {{i}}
+                      </a>
+                    </li>
+        
+                    {% else %}
+        
+                    <li class="page-item">
+                      <a href="?page={{i}}" class="page-link">{{i}}</a>
+                    </li>
+        
+                    {% endif %}
+        
+                    {% endfor %}
+        
+                    {% if list_income.has_next %}
+                    <li class="page-item">
+                      <a href="?page={{list_income.next_page_number}}" class="page-link">
+                        &raquo;
+                      </a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                      <a class="page-link">
+                        &raquo;
+                      </a>
+                    </li>
+                    {% endif %}
+                  </ul>
+                  {% endif %}
+                </div>
+              </div>
+        </div>
+        
+        
+
+        
+        
+
+        {% else %}
+
+        <div class="col-lg-12 m-b30">
+                {% include 'partials/_alerts.html' %}
+                <div class="widget-box">
+                    
+                    <div class="wc-title">
+                        <h4>Add New Expenses</h4>
+                    </div>
+                   
+                </div>
+            </div>
+        
+        {% endif %}
+
+        
+    </div>
+</main>
+
+{% endblock %}

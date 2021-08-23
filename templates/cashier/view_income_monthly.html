@@ -1,0 +1,87 @@
+{% extends 'dashboard_base.html' %}
+
+{% block title %} User | Monthly Income {% endblock %}
+
+{% load static %}
+
+{% load humanize %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+
+
+<!-- Left sidebar menu start -->
+{% include 'partials/_LeftSideBar.html' %}
+<!-- Left sidebar menu end -->
+
+<main class="ttr-wrapper">
+    <div class="container-fluid">
+        <div class="db-breadcrumb">
+            <h4 class="breadcrumb-title">Hello! {{ user.username }} </h4>
+            <ul class="db-breadcrumb-list">
+                <li><a href="#"><i class="fa fa-home"></i>Home</a></li>
+                <li>Dashboard</li>
+            </ul>
+        </div>	
+
+        <!--Check if User is login and is also a staff and a superuser-->
+        {% if user.is_authenticated and user.is_staff and user.is_superuser %}
+
+        <div class="col-md-8">
+            <table class="table bg-white">
+                <thead class="bg-info text-white">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Month</th>
+                    <th scope="col">Total Amount</th>
+                
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for income in total_income %}
+                  <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td nowrap>{{ income.month }}</td>
+                    
+                    <td nowrap>{{ income.total_amount | intcomma }}</td>
+                    
+                    
+                    <td nowrap>
+                        <a class="btn btn-info btn-sm" href="#">Edit</a>
+                        <a class="btn btn-danger btn-sm" href="#">Delete</a>
+                    </td>
+                  </tr>
+                  {% endfor %}             
+                </tbody>
+              </table>
+        </div>
+        
+        
+
+        
+        
+
+        {% else %}
+
+        <div class="col-lg-12 m-b30">
+                {% include 'partials/_alerts.html' %}
+                <div class="widget-box">
+                    
+                    <div class="wc-title">
+                        <h4>Add New Expenses</h4>
+                    </div>
+                   
+                </div>
+            </div>
+        
+        {% endif %}
+
+        
+    </div>
+</main>
+
+{% endblock %}
