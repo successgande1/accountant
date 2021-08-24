@@ -4,16 +4,19 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 CATEGORY_INCOME = (
-    ('Printing / Photostart / Printing', 'Printing / Photostart / Printing'),
-    ('Typing ', 'Typing'),
+    ('Document Printing / Document Photostart ', 'Document Printing / Document Photostart '),
+    ('Document Typing ', 'Document Typing'),
+    ('Document Scan ', 'Document Scan'),
+    ('Website / Software Development ', 'Website / Software Development'),
+    ('Document Colored Print ', 'Document Colored Print'),
     ('Graphic Design / Passport', 'Graphic Design / Passport'),
-    ('Email Creation / Checking', 'Email Creation / Checking'),
-    ('Online Application', 'Online Application'),
-    ('Result', 'Result'),
+    ('Email Creation / Checking /Document Attachment', 'Email Creation / Checking / Document Attachment'),
+    ('Online Application / Registration', 'Online Application / Registration'),
+    ('Result Check', 'Result Check'),
     ('Computer Training Fee', 'Computer Training Fee'),
-    ('Laminating', 'Laminating'),
-    ('Sell of Agreement Form', 'Sale of Agreement Form'),
-    ('Sell of Envelope / Binding Film', 'Sell of Envelope / Binding Film'),
+    ('Document Laminating', ' Document Laminating'),
+    ('Sale of Agreement Form', 'Sale of Agreement Form'),
+    ('Sale of Envelope / Binding Film', 'Sale of Envelope / Binding Film'),
 )
 
 CATEGORY_EXPENSES = (
@@ -22,7 +25,7 @@ CATEGORY_EXPENSES = (
     ('Airtime Recharge', 'Airtime Recharge'),
     ('Fittings / Repairs', 'Fittings / Repairs'),
     ('Staff Salary', 'Staff Salary'),
-    ('Generator Maintainance', 'Generator Maintainance'),
+    ('Generator / Bike Maintainance', 'Generator / Bike Maintainance'),
 )
 
 class Expenditure(models.Model):  

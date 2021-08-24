@@ -1,10 +1,21 @@
-### Django ###
+# General
 *.log
-*.pot
+*.pdf
+*.png
+*.jpg
+
+# IDE
+.idea/ # PyCharm settings
+.vscode/ # VSCode settings
+
+# Python
 *.pyc
-__pycache__/
-local_settings.py
-db.sqlite3
-db.sqlite3-journal
-media
-/venv
+env/
+venv/
+
+# Databases
+*.sqlite3
+
+# JavaScript
+node_modules/
+build/ # Webpack build output
