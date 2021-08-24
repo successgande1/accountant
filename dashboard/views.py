@@ -34,6 +34,10 @@ def index(request):
 
     date_today = datetime.datetime.now().date
 
+    #Count Total Income for current Month in the current Year
+    count_income = Income.objects.filter(date__year=now.year, date__month=now.month).aggregate(total_income=Count('description')).get('count_income') or 0
+
+
     #Query Total Income for current Month in the current Year
     total_income = Income.objects.filter(date__year=now.year, date__month=now.month).aggregate(total_income=Sum('amount')).get('total_income') or 0
 
@@ -61,6 +65,7 @@ def index(request):
         'net_monthly_income' : net_monthly_income,
         'daily_income': daily_income,
         'all_income':all_income,
+        'count_income':count_income,
         
     }
     return render(request, 'dashboard/index.html', context)
