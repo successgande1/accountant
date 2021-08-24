@@ -6,10 +6,10 @@
                 <h4 class="wc-title">
                     Income:
                 </h4>
-                <span style="color:rgb(255, 255, 255);font-size:small">
+                <span style="color:black;font-size:small">
                     Today: {{date_today}} 
                 <span class="wc-stats counter">
-                    <h5 style="color: rgb(95, 3, 3);">N{{ daily_income | intcomma }}</h5>
+                    <h5 style="color: white;">N{{ daily_income | intcomma }}</h5>
                 </span>		
                 <div class="progress wc-progress">
                     <div class="progress-bar" role="progressbar" style="width: 90%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
@@ -31,7 +31,7 @@
                 <h4 class="wc-title">
                    Monthly:
                 </h4>
-                <span style="color:rgb(255, 255, 255);font-size:small">
+                <span style="color:rgb(179, 180, 175);font-size:small">
                     This Month: {% now "M" %}, {% now "Y" %}
                 </span>
                 <span class="wc-stats counter">
@@ -58,7 +58,7 @@
                 <h4 class="wc-title">
                      Net Income:
                 </h4>
-                <span style="color:rgb(255, 255, 255);font-size:small">
+                <span style="color:black;font-size:small">
                     This Month: {% now "M" %}, {% now "Y" %}
                 </span>
                 <span class="wc-stats counter">
@@ -84,11 +84,11 @@
                 <h4 class="wc-title">
                     Expenses:
                 </h4>
-                <span style="color:rgb(255, 255, 255);font-size:small">
+                <span style="color:black;font-size:small">
                     This Month: {% now "M" %}, {% now "Y" %}
                 </span>
                 <span class="wc-stats counter">
-                    <h5 style="color: blue;">N{{ total_monthly_expenses | intcomma }}</h5>
+                    <h5 style="color: rgb(0, 0, 7);">N{{ total_monthly_expenses | intcomma }}</h5>
                 </span>		
                 <div class="progress wc-progress">
                     <div class="progress-bar" role="progressbar" style="width: 65%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
