@@ -34,10 +34,10 @@ def index(request):
 
     date_today = datetime.datetime.now().date
 
-    #Count Total Income for current Month in the current Year
+    #Count Daily Total Income 
     count_income = Income.objects.filter(date__year=now.year, date__month=now.month, date__day=now.day).aggregate(count_income=Count('date')).get('count_income') or 0
 
-    #Count Total Expenses for current Month in the current Year
+    #Count Daily Total Expenses 
     count_expenses = Expenditure.objects.filter(date__year=now.year, date__month=now.month, date__day=now.day).aggregate(count_expenses=Count('date')).get('count_expenses') or 0
 
 
