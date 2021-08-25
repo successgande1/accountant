@@ -35,21 +35,28 @@
                 <thead class="bg-info text-white">
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Month</th>
-                    <th scope="col">Total Amount</th>
-                
+                    <th scope="col" nowrap>Month, Year</th>
+                    <th scope="col" nowrap>Gross Income</th>
+                    <th scope="col">Expenditure</th>
+                    <th scope="col" nowrap>Net Income</th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
                 <tbody>
-                    {% for income in total_income %}
+                    {% for total_monthly_income, total_monthly_expenses, net_monthly_income in income_list %}
                   <tr>
                     <th scope="row">{{ forloop.counter }}</th>
                     <td nowrap>{{ income.month }}</td>
+                    <td nowrap>{{ total_monthly_income.total_monthly_income | intcomma }}</td>
                     
-                    <td nowrap>{{ income.total_amount | intcomma }}</td>
+                    
+                    <td >{{ total_monthly_expenses.total_monthly_expenses | intcomma }}</td>
+                    
+                    <td >{{ net_monthly_income.net_monthly_income | intcomma }}</td>
                     
                     
+
+                  
                     <td nowrap>
                         <a class="btn btn-info btn-sm" href="#">Edit</a>
                         <a class="btn btn-danger btn-sm" href="#">Delete</a>

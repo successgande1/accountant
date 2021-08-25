@@ -19,6 +19,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 from cashier import views as cashier_view
 from django.contrib.auth import views as auth_view
+from dashboard import views as dashbaord_view
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,6 +33,7 @@ urlpatterns = [
     path('income/list/', cashier_view.list_Income, name = 'user-list-income'),
     path('income/monthly/list/', cashier_view.monthly_Income, name = 'user-list-monthly-income'),
     path('profile/update/', cashier_view.profile_update, name = 'user-profile-update'),
+    path('income/delete/', dashbaord_view.user_income_delete, name = 'income-delete'),
     path('', auth_view.LoginView.as_view(template_name='cashier/login.html'), name = 'cashier-login'),
      path('logout/', auth_view.LogoutView.as_view(template_name='cashier/logout.html'), name = 'cashier-logout'),
 ]

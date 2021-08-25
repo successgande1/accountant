@@ -11,7 +11,12 @@ admin.site.site_header = 'SUCCESS ICT Accountant'
 class ExpenditureAdmin(admin.ModelAdmin):
     list_display = ('description', 'category', 'staff', 'amount', 'date', 'addedDate')
 
+
+#Customize The Display of Model in a Table inside the Admin Pannel
+class IncomeAdmin(admin.ModelAdmin):
+    list_display = ('id', 'description', 'category', 'staff', 'amount', 'date', 'addedDate')
+
 # Register your models here and also pass your class Admin for List Display if available.
 admin.site.register(Expenditure, ExpenditureAdmin)
 
-admin.site.register(Income)
+admin.site.register(Income, IncomeAdmin)

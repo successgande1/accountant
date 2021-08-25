@@ -5,4 +5,5 @@ from cashier import views as user_view
 
 urlpatterns = [
     path('dashboard/', views.index, name = 'dashboard-index'),
+
 ]

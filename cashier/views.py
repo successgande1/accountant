@@ -145,14 +145,20 @@ def list_Income(request):
 @login_required(login_url='cashier-login')
 def monthly_Income(request):
 
-    total_income = Income.objects.annotate(month=TruncMonth('date')).values('month').annotate(total_amount=Sum('amount'))
+    #Get Day of today from current date and time
+    now = datetime.datetime.now()
 
-   
+    total_monthly_income = Income.objects.annotate(month=TruncMonth('date')).values('month').annotate(total_monthly_income=Sum('amount'))
+    total_monthly_expenses = Expenditure.objects.annotate(month=TruncMonth('date')).values('month').annotate(total_monthly_expenses=Sum('amount'))
+    net_monthly_income = total_monthly_income - total_monthly_expenses
+    # is values are int then convert those into list first then zip
+    income_list = zip(total_monthly_income, total_monthly_expenses, net_monthly_income)
+    print(total_monthly_income, total_monthly_expenses, net_monthly_income)
     context = {
-        
-        'total_income': total_income,
-        
-       
+        'income_list': income_list
     }
+    
+    
+    
 
     return render(request, 'cashier/view_income_monthly.html', context)

@@ -47,8 +47,8 @@
                   {% for income in list_income %}
                   <tr>
                     <th scope="row">{{ forloop.counter }}</th>
-                    <td nowrap>{{ income.description }}</td>
-                    <td nowrap>{{ income.category }}</td>
+                    <td >{{ income.description }}</td>
+                    <td >{{ income.category }}</td>
                     <td nowrap>N{{ income.amount | intcomma }}</td>
                     <td >{{ income.remarks }}</td>
                     <td nowrap>{{ income.date }}</td>
