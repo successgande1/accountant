@@ -150,14 +150,11 @@ def monthly_Income(request):
 
     total_monthly_income = Income.objects.annotate(month=TruncMonth('date')).values('month').annotate(total_monthly_income=Sum('amount'))
     total_monthly_expenses = Expenditure.objects.annotate(month=TruncMonth('date')).values('month').annotate(total_monthly_expenses=Sum('amount'))
-    net_monthly_income = total_monthly_income - total_monthly_expenses
-    # is values are int then convert those into list first then zip
+    net_monthly_income = [total_monthly_income[0].get('total_monthly_income', 0) - total_monthly_expenses[0].get('total_monthly_expenses', 0)]
     income_list = zip(total_monthly_income, total_monthly_expenses, net_monthly_income)
-    print(total_monthly_income, total_monthly_expenses, net_monthly_income)
     context = {
         'income_list': income_list
     }
-    
     
     
 
