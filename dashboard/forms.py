@@ -5,10 +5,10 @@ from .models import Expenditure, Income
 class ExpensesForm(forms.ModelForm):
     class Meta:
         model = Expenditure
-        fields = ['description', 'category', 'amount', 'Remarks', 'date']
+        fields = ['date', 'description', 'category', 'amount', 'Remarks']
 
 #Add Income Form
 class IncomeForm(forms.ModelForm):
     class Meta:
         model = Income
-        fields = ['description', 'category', 'amount', 'remarks', 'date']
+        fields = ['date', 'description', 'category', 'amount', 'remarks']
