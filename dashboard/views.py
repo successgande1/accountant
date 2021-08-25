@@ -9,6 +9,7 @@ from django.db.models import Count, Sum
 from django.db import connection
 from datetime import datetime
 import datetime
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
 
 from django.contrib import messages
@@ -25,6 +26,9 @@ def index(request):
 
     #List Only 2 Incomes
     income = Income.objects.order_by('-date')[:3] 
+
+    #List all incomes
+    list_all_income = Income.objects.order_by('-date')
 
     #List All the Incomes
     all_income = Income.objects.order_by('-date')[:5]
@@ -53,6 +57,10 @@ def index(request):
     #Query Daily Income of the month
     daily_income = Income.objects.filter(date__year=now.year, date__month=now.month, date__day=now.day).aggregate(daily_income=Sum('amount')).get('daily_income') or 0
 
+    #Pagination
+    paginator = Paginator(list_all_income, 5)
+    page = request.GET.get('page')
+    paged_all_income = paginator.get_page(page)
     
     #Calculation of Total Income and Expenditure difference
     net_monthly_income = total_income - total_monthly_expenses
@@ -71,6 +79,7 @@ def index(request):
         'all_income':all_income,
         'count_income':count_income,
         'count_expenses':count_expenses,
+        'list_all_income':paged_all_income,
         
     }
     return render(request, 'dashboard/index.html', context)
