@@ -86,6 +86,6 @@ def index(request):
 
 #Method for Deleting Income
 @login_required(login_url='cashier-login')
-def user_income_delete(request):
+def user_income_delete(request,pk):
     
     return render(request, 'dashboard/income_delete.html')

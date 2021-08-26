@@ -4,13 +4,13 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 CATEGORY_INCOME = (
-    ('Document Printing / Document Photostart ', 'Document Printing / Document Photostart '),
-    ('Document Typing ', 'Document Typing'),
-    ('Document Scan ', 'Document Scan'),
+    ('Document Printing/Photostart ', 'Document Printing/Photostart'),
+    ('Document Typing / Printing ', 'Document Typing / Printing'),
+    ('Document Scan / Emailing ', 'Document Scan / Emailing'),
     ('Website / Software Development ', 'Website / Software Development'),
     ('Document Colored Print ', 'Document Colored Print'),
-    ('Graphic Design / Passport', 'Graphic Design / Passport'),
-    ('Email Creation / Checking /Document Attachment', 'Email Creation / Checking / Document Attachment'),
+    ('Graphic Design', 'Graphic Design'),
+    ('Email Creation / Checking ', 'Email Creation / Checking'),
     ('Online Application / Registration', 'Online Application / Registration'),
     ('Result Check', 'Result Check'),
     ('Computer Training Fee', 'Computer Training Fee'),

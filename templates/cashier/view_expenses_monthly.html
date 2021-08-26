@@ -1,6 +1,6 @@
 {% extends 'dashboard_base.html' %}
 
-{% block title %} User | Monthly Income {% endblock %}
+{% block title %} User | Monthly Expenses {% endblock %}
 
 {% load static %}
 
@@ -23,7 +23,7 @@
             <h4 class="breadcrumb-title" style="color: rgb(4, 149, 16);">Hello! {{ user.username }} </h4>
             <ul class="db-breadcrumb-list">
                 <li><a href="#"><i class="fa fa-home"></i>Home</a></li>
-                <li style="color: blue;">List of Monthly Incomes</li>
+                <li style="color: blue;">List of Monthly Expenditures</li>
             </ul>
         </div>	
 
@@ -36,17 +36,17 @@
                   <tr>
                     <th scope="col">#</th>
                     <th scope="col" nowrap style="color: white;">Month, Year</th>
-                    <th scope="col" nowrap style="color: white;">Gross Profit</th>
+                    <th scope="col" nowrap style="color: white;">Gross Expenditure</th>
                     <th scope="col" style="color: white;">Action</th>
                   </tr>
                 </thead>
                 <tbody>
                     <!--Loop over the income List for Total Monthly Income, Expenses and Net Income in the Income List-->
-        {% for income in total_income %}
+        {% for expenses in total_expenses %}
             <tr>
                 <th scope="row">{{ forloop.counter }}</th>
-                <td nowrap>{{ income.month }}</td>
-                <td nowrap>N{{ income.total_amount | intcomma }}</td>
+                <td nowrap>{{ expenses.month }}</td>
+                <td nowrap>N{{ expenses.total_amount | intcomma }}</td>
                 <td nowrap>
                     <a class="btn btn-info btn-sm" href="#">Edit</a>
                     <a class="btn btn-danger btn-sm" href="#">Delete</a>

@@ -73,7 +73,9 @@ def AddExpenses(request):
         Add_expense_form = ExpensesForm(request.POST)
         if Add_expense_form.is_valid():
             Add_expense_form.save()
-            messages.success(request, 'Expenses Added Successfully')
+            expense_name = Add_expense_form.cleaned_data['description']
+            expense_date = Add_expense_form.cleaned_data['date']
+            messages.success(request, f'{expense_name} Expense for {expense_date} Added Successfully')
             return redirect('user-add-expenses')
     else:
         Add_expense_form = ExpensesForm()
@@ -89,7 +91,10 @@ def AddIncome(request):
         Add_income_form = IncomeForm(request.POST)
         if Add_income_form.is_valid():
             Add_income_form.save()
-            messages.success(request, 'Income Added Successfully')
+            #Get Description field name from Income Form
+            income_name = Add_income_form.cleaned_data['description']
+            income_date = Add_income_form.cleaned_data['date']
+            messages.success(request, f'{income_name} Income for {income_date} Added Successfully')
             return redirect('user-add-income')
     else:
         Add_income_form = IncomeForm()
@@ -141,27 +146,52 @@ def list_Income(request):
     return render(request, 'cashier/list_income.html', context)
 
 
-#View Monthly Gross Profit, Expenditure, and Net Income method
+#View Monthly Income method
 @login_required(login_url='cashier-login')
 def monthly_Income(request):
 
     #Get Day of today from current date and time
     now = datetime.datetime.now()
+    total_income = Income.objects.annotate(month=TruncMonth('date')).values('month').annotate(total_amount=Sum('amount'))
 
-    #Get Total Monthly Income 
+    context = {
+        'total_income': total_income,
+    }       
+    return render(request, 'cashier/view_income_monthly.html', context)
+
+#View Monthly Income method
+@login_required(login_url='cashier-login')
+def monthly_Expenses(request):
+
+    #Get Day of today from current date and time
+    now = datetime.datetime.now()
+    total_expenses = Expenditure.objects.annotate(month=TruncMonth('date')).values('month').annotate(total_amount=Sum('amount'))
+
+    context = {
+        'total_expenses': total_expenses,
+    }       
+    return render(request, 'cashier/view_expenses_monthly.html', context)
+
+#View Monthly Gross Profit, Expenditure, and Net Income method
+@login_required(login_url='cashier-login')
+def monthly_yearly_Income(request):
+
+    #Get Day of today from current date and time
+    now = datetime.datetime.now()
+
     total_monthly_income = Income.objects.annotate(month=TruncMonth('date')).values('month').annotate(total_monthly_income=Sum('amount'))
-    
-    #Get Total Monthly Expenditure
     total_monthly_expenses = Expenditure.objects.annotate(month=TruncMonth('date')).values('month').annotate(total_monthly_expenses=Sum('amount'))
+    income_expense = zip(total_monthly_income, total_monthly_expenses)
     
-    #Get Monthly Net Income
-    net_monthly_income = [total_monthly_income[0].get('total_monthly_income', 0) - total_monthly_expenses[0].get('total_monthly_expenses', 0)]
+    net_monthly_income_list = []
     
-    #Zip all the results (monthly income, expenses, net income) as a List to a variable for the context dict
-    income_list = zip(total_monthly_income, total_monthly_expenses, net_monthly_income)
-
-    #Context Dictionary to be transmitted to the HTML Template
+    for income, expense in income_expense:
+        net_monthly_income_list.append(income.get('total_monthly_income', 0) - expense.get('total_monthly_expenses', 0)) or 0
+    
+    income_list = zip(total_monthly_income, total_monthly_expenses, net_monthly_income_list)
+    
     context = {
         'income_list': income_list
     }
-    return render(request, 'cashier/view_income_monthly.html', context)
+
+    return render(request, 'cashier/monthly_yearly_income_expense.html', context)
