@@ -43,12 +43,17 @@
                   </tr>
                 </thead>
                 <tbody>
+                    <!--Loop over the income List for Total Monthly Income, Expenses and Net Income in the Income List-->
                     {% for total_monthly_income, total_monthly_expenses, net_monthly_income in income_list %}
                     <tr>
                         <th scope="row">{{ forloop.counter }}</th>
+                        <!--Call the Total Monthly Income variable and its month as in view function to Month Name-->
                         <td nowrap>{{ total_monthly_income.month }}</td>
+                         <!--Call the Total Monthly Income variable and its Value (amount) as in the method to Month Name-->
                         <td nowrap>N{{ total_monthly_income.total_monthly_income | intcomma }}</td>
+                         <!--Call the Total Monthly Expenses and its Amount using its value as in view function to Month Name-->
                         <td >N{{ total_monthly_expenses.total_monthly_expenses | intcomma }}</td>
+                         <!--Call the Net Monthly Income variable for result of calculation as in view function-->
                         <td >N{{ net_monthly_income | intcomma }}</td>
                     
                         <td nowrap>

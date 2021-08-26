@@ -141,21 +141,27 @@ def list_Income(request):
     return render(request, 'cashier/list_income.html', context)
 
 
-#View Monthly Income method
+#View Monthly Gross Profit, Expenditure, and Net Income method
 @login_required(login_url='cashier-login')
 def monthly_Income(request):
 
     #Get Day of today from current date and time
     now = datetime.datetime.now()
 
+    #Get Total Monthly Income 
     total_monthly_income = Income.objects.annotate(month=TruncMonth('date')).values('month').annotate(total_monthly_income=Sum('amount'))
+    
+    #Get Total Monthly Expenditure
     total_monthly_expenses = Expenditure.objects.annotate(month=TruncMonth('date')).values('month').annotate(total_monthly_expenses=Sum('amount'))
+    
+    #Get Monthly Net Income
     net_monthly_income = [total_monthly_income[0].get('total_monthly_income', 0) - total_monthly_expenses[0].get('total_monthly_expenses', 0)]
+    
+    #Zip all the results (monthly income, expenses, net income) as a List to a variable for the context dict
     income_list = zip(total_monthly_income, total_monthly_expenses, net_monthly_income)
+
+    #Context Dictionary to be transmitted to the HTML Template
     context = {
         'income_list': income_list
     }
-    
-    
-
     return render(request, 'cashier/view_income_monthly.html', context)
