@@ -131,16 +131,11 @@ def list_Income(request):
 
      #Get Day of today from current date and time
     #now = datetime.datetime.now()
-
-
     #Query Total Income for current Month in the current Year
     #monthly_total = Income.objects.filter(date__year=now.year, date__month=now.month).aggregate(monthly_total=Sum('amount'))['monthly_total']
 
-
-
     context = {
         'list_income':paged_income,
-        
     }
 
     return render(request, 'cashier/list_income.html', context)

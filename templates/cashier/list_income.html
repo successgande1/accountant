@@ -31,6 +31,7 @@
         {% if user.is_authenticated and user.is_staff and user.is_superuser %}
 
         <div class="col-md-8">
+          {% include 'partials/_alerts.html' %}
             <table class="table bg-white">
                 <thead class="bg-info text-white">
                   <tr>

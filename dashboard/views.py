@@ -84,8 +84,16 @@ def index(request):
     }
     return render(request, 'dashboard/index.html', context)
 
-#Method for Deleting Income
+#Method for Deleting Income Item
 @login_required(login_url='cashier-login')
 def user_income_delete(request,pk):
-    
-    return render(request, 'dashboard/income_delete.html')
+    income_item = Income.objects.get(id=pk)
+    if request.method == "POST":
+        income_item.delete()
+        income_descrip = income_item.description
+        messages.error(request, f'{income_descrip} Item Deleted successfully')
+        return redirect('user-list-income')
+    context = {
+        'income_item':income_item,
+    }
+    return render(request, 'dashboard/income_delete.html', context)
