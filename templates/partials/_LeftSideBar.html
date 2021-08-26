@@ -63,6 +63,17 @@
                 </li>
 
                 {% else %}
+                <li>
+                    <a href="{% url 'user-add-income' %}" class="ttr-material-button">
+                        <span class="ttr-icon"><i class="ti-book"></i></span>
+                        <span class="ttr-label"> Add Income</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'user-list-income' %}" class="ttr-material-button">
+                        <span class="ttr-icon"><i class="ti-book"></i></span>
+                        <span class="ttr-label">View Income</span></a>
+                </li>
 
                 <li>
                     <a href="{% url 'user-add-expenses' %}" class="ttr-material-button">
@@ -71,11 +82,12 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{% url 'user-add-income' %}" class="ttr-material-button">
+                    <a href="{% url 'user-list-expenses' %}" class="ttr-material-button">
                         <span class="ttr-icon"><i class="ti-book"></i></span>
-                        <span class="ttr-label"> Add Income</span>
-                    </a>
+                        <span class="ttr-label">View Expenses</span></a>
                 </li>
+                
+               
                 
                 {% endif %}
                

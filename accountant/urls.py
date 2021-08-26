@@ -36,6 +36,7 @@ urlpatterns = [
     path('income/profit/list/', cashier_view.monthly_yearly_Income, name = 'user-profit-lost-account'),
     path('profile/update/', cashier_view.profile_update, name = 'user-profile-update'),
     path('income/delete/<int:pk>/', dashbaord_view.user_income_delete, name = 'income-delete'),
+    path('expense/delete/<int:pk>/', dashbaord_view.user_expense_delete, name = 'admin-expense-delete'),
     path('', auth_view.LoginView.as_view(template_name='cashier/login.html'), name = 'cashier-login'),
      path('logout/', auth_view.LogoutView.as_view(template_name='cashier/logout.html'), name = 'cashier-logout'),
 ]

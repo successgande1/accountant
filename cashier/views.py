@@ -75,8 +75,8 @@ def AddExpenses(request):
             Add_expense_form.save()
             expense_name = Add_expense_form.cleaned_data['description']
             expense_date = Add_expense_form.cleaned_data['date']
-            messages.success(request, f'{expense_name} Expense for {expense_date} Added Successfully')
-            return redirect('user-add-expenses')
+            messages.success(request, f'{expense_name} Expenditure Item for {expense_date} Added Successfully')
+            return redirect('user-list-expenses')
     else:
         Add_expense_form = ExpensesForm()
     context = {
@@ -95,7 +95,7 @@ def AddIncome(request):
             income_name = Add_income_form.cleaned_data['description']
             income_date = Add_income_form.cleaned_data['date']
             messages.success(request, f'{income_name} Income for {income_date} Added Successfully')
-            return redirect('user-add-income')
+            return redirect('user-list-income')
     else:
         Add_income_form = IncomeForm()
     context = {

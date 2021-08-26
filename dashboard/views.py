@@ -91,9 +91,23 @@ def user_income_delete(request,pk):
     if request.method == "POST":
         income_item.delete()
         income_descrip = income_item.description
-        messages.error(request, f'{income_descrip} Item Deleted successfully')
+        messages.error(request, f'{income_descrip} Income Item Deleted successfully')
         return redirect('user-list-income')
     context = {
         'income_item':income_item,
     }
     return render(request, 'dashboard/income_delete.html', context)
+
+#Method for Deleting Income Item
+@login_required(login_url='cashier-login')
+def user_expense_delete(request,pk):
+    expense_item = Expenditure.objects.get(id=pk)
+    if request.method == "POST":
+        expense_item.delete()
+        expense_descrip = expense_item.description
+        messages.error(request, f'{expense_descrip} Expenditure Item Deleted successfully')
+        return redirect('user-list-expenses') 
+    context = {
+        'expense_item':expense_item,
+    }
+    return render(request, 'dashboard/delete_expense.html', context)
