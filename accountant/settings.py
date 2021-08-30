@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'dashboard.apps.DashboardConfig',
     'crispy_forms',
     'django.contrib.humanize',
+    'pdf.apps.PdfConfig',
 ]
 
 MIDDLEWARE = [

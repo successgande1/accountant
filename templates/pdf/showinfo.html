@@ -23,7 +23,7 @@
             <h4 class="breadcrumb-title" style="color: rgb(4, 149, 16);">Hello! {{ user.username }} </h4>
             <ul class="db-breadcrumb-list">
                 <li><a href="#"><i class="fa fa-home"></i>Home</a></li>
-                <li style="color: blue;">List of Incomes</li>
+                <li style="color: blue;">List of Incomes Pdf</li>
             </ul>
         </div>
         {% include 'partials/_alerts.html' %}	
@@ -68,7 +68,9 @@
                   
                 </tbody>
               </table>
+
               <a class="btn btn-primary" href="{% url 'create-income-pdf' %}" target="_blank">Create PDF</a>
+              
               {% else %}     
                   <strong> There are No Available Income to Display </strong> 
               {% endif %}

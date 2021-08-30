@@ -20,12 +20,15 @@ from django.conf.urls.static import static
 from cashier import views as cashier_view
 from django.contrib.auth import views as auth_view
 from dashboard import views as dashbaord_view
+from pdf import views as pdf_view
 
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('dashboard.urls')),
+    path('income/list/pdf/', pdf_view.show_income_pdf, name = 'list-income-pdf' ),
+    path('income/list/create-pdf/', pdf_view.pdf_create_report_income, name = 'create-income-pdf' ),
     path('register/', cashier_view.register, name = 'user-add'),
     path('profile/', cashier_view.profile, name = 'user-profile'),
     path('expenses/', cashier_view.AddExpenses, name = 'user-add-expenses'),

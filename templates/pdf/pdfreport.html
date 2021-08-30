@@ -1,0 +1,51 @@
+
+
+
+
+
+
+
+
+
+        <div class="col-md-8">
+          {% if list_income %}
+          <div style="text-align:center; color:green; font-weight:bolder">SUCCESS ICT ACCOUNTANT</div>
+          <div style="text-align:center; color:rgb(70, 3, 53); font-weight:bolder">List of All Income</div>
+          <table class="table bg-white">
+              <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col" style="color:black;">Description</th>
+                    <th scope="col" style="color: black;">Category</th>
+                    <th scope="col" style="color: black;">Amount</th>
+                    <th scope="col" style="color: black;">Remark</th>
+                    <th scope="col" style="color: black;">Income Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  
+
+                  {% for income in list_income %}
+                  <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td style="text-align: center;">{{ income.description }}</td>
+                    <td style=" text-align: center;">{{ income.category }}</td>
+                    <td style=" text-align: center;">N{{ income.amount }}</td>
+                    <td style=" text-align: center;">{{ income.remarks }}</td>
+                    <td style=" text-align: center;">{{ income.date }}</td>
+                  </tr>
+                  {% endfor %}    
+                  <tr><td >{{ monthly_total }}</td></tr>    
+                  
+                </tbody>
+              </table>
+             
+              {% else %}     
+                  <strong> There are No Available Income to Display </strong> 
+              {% endif %} 
+        </div>
+      
+      
+  
+    
+
