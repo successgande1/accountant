@@ -12,3 +12,13 @@ class IncomeForm(forms.ModelForm):
     class Meta:
         model = Income
         fields = ['date', 'description', 'category', 'amount', 'remarks']
+
+class ExpenseUpdate(forms.ModelForm):
+    class Meta:
+        model = Expenditure
+        fields = ['date', 'description', 'category', 'amount', 'Remarks']
+
+class IncomeUpdate(forms.ModelForm):
+    class Meta:
+        model = Income
+        fields = ['date', 'description', 'category', 'amount', 'remarks']

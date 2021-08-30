@@ -4,28 +4,28 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 CATEGORY_INCOME = (
-    ('Document Printing/Photostart ', 'Document Printing/Photostart'),
-    ('Document Typing / Printing ', 'Document Typing / Printing'),
-    ('Document Scan / Emailing ', 'Document Scan / Emailing'),
-    ('Website / Software Development ', 'Website / Software Development'),
-    ('Document Colored Print ', 'Document Colored Print'),
+    ('Photostart ', 'Photostart'),
+    ('Typing / Printing ', 'Typing / Printing'),
+    ('Scan / Emailing ', 'Scan / Emailing'),
+    ('Web Development ', 'Web Development'),
+    ('Colored Print ', 'Colored Print'),
     ('Graphic Design', 'Graphic Design'),
-    ('Email Creation / Checking ', 'Email Creation / Checking'),
-    ('Online Application / Registration', 'Online Application / Registration'),
+    ('Email ', 'Email Creation / Checking'),
+    ('Online Registration', 'Online Registration'),
     ('Result Check', 'Result Check'),
-    ('Computer Training Fee', 'Computer Training Fee'),
-    ('Document Laminating', ' Document Laminating'),
-    ('Sale of Agreement Form', 'Sale of Agreement Form'),
-    ('Sale of Envelope / Binding Film', 'Sale of Envelope / Binding Film'),
+    ('Training Fee', 'Training Fee'),
+    ('Lamination', ' Lamination'),
+    ('Agreement Form', 'Agreement Form'),
+    ('Envelope / Binding Film', 'Envelope / Binding Film'),
 )
 
 CATEGORY_EXPENSES = (
     ('Stationaries', 'Stationaries'),
     ('Family Up Keep', 'Family Up Keep'),
     ('Airtime Recharge', 'Airtime Recharge'),
-    ('Fittings / Repairs', 'Fittings / Repairs'),
+    ('Repairs', 'Repairs'),
     ('Staff Salary', 'Staff Salary'),
-    ('Generator / Bike Maintainance', 'Generator / Bike Maintainance'),
+    ('Maintainance', 'Maintainance'),
 )
 
 class Expenditure(models.Model):  

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from .forms import CreateUserForm, UserUpdateForm, ProfileUpdateForm
-from dashboard .forms import ExpensesForm, IncomeForm
+from dashboard .forms import ExpensesForm, IncomeForm, IncomeUpdate, ExpenseUpdate
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -10,6 +10,8 @@ from django.db.models.functions import TruncMonth
 from django.db.models import Count, Sum
 import datetime
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+
+
 
 # Create your views here.
 @login_required(login_url='cashier-login')
@@ -102,6 +104,24 @@ def AddIncome(request):
         'Add_income_form':Add_income_form,
     }
     return render(request, 'cashier/add_income.html', context)
+
+#Method for Updating Income Income Item
+@login_required(login_url='cashier-login')
+def UpdateIncome(request, pk):
+    income_item = Income.objects.get(id=pk)
+    if request.method == "POST":
+        income_update_form = IncomeUpdate(request.POST, instance=income_item)
+        if income_update_form.is_valid():
+            income_update_form.save()
+            messages.success(request, f'{income_item} information Updated Successfully')
+            return redirect('user-list-income')
+    else:
+        income_update_form = IncomeUpdate(instance=income_item)
+    context = {
+        'income_update_form':income_update_form,
+        'income_item':income_item,
+    }
+    return render(request, 'cashier/income_update.html', context)
 
 #List Expenses method
 @login_required(login_url='cashier-login')

@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from .models import Expenditure, Income
-#from .forms import ProductForm, SalesForm
+from .forms import IncomeUpdate, ExpenseUpdate, IncomeForm, ExpensesForm
 from django.contrib.auth.models import User
 from django.db.models.functions import TruncMonth
 from django.db.models import Count, Sum
@@ -111,3 +111,4 @@ def user_expense_delete(request,pk):
         'expense_item':expense_item,
     }
     return render(request, 'dashboard/delete_expense.html', context)
+

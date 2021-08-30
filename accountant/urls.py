@@ -22,6 +22,7 @@ from django.contrib.auth import views as auth_view
 from dashboard import views as dashbaord_view
 
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('dashboard.urls')),
@@ -29,6 +30,7 @@ urlpatterns = [
     path('profile/', cashier_view.profile, name = 'user-profile'),
     path('expenses/', cashier_view.AddExpenses, name = 'user-add-expenses'),
     path('income/', cashier_view.AddIncome, name = 'user-add-income'),
+     path('income/update/<int:pk>', cashier_view.UpdateIncome, name = 'income-update'),
     path('expenses/list/', cashier_view.list_Expense, name = 'user-list-expenses'),
     path('income/list/', cashier_view.list_Income, name = 'user-list-income'),
     path('income/monthly/list/', cashier_view.monthly_Income, name = 'user-list-monthly-income'),

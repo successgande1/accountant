@@ -30,6 +30,7 @@
         
         {% include 'partials/_alerts.html' %}	
         <div class="col-md-8">
+          {% if list_expenses %}
             <table class="table bg-white">
                 <thead class="bg-info text-white">
                   <tr>
@@ -42,7 +43,10 @@
                     <th scope="col" style="color: white;">Action</th>
                   </tr>
                 </thead>
+               
                 <tbody>
+                  
+
                   {% for expenses in list_expenses %}
                   <tr>
                     <th scope="row">{{ forloop.counter }}</th>
@@ -53,13 +57,21 @@
                     <td nowrap>{{ expenses.date }}</td>
                     
                     <td nowrap>
+                      {% if user.is_authenticated and user.is_staff and user.is_superuser %}
+                      <a class="btn btn-info btn-sm" href="#">Print</a>
+                      {% else %}
                         <a class="btn btn-info btn-sm" href="#">Edit</a>
                         <a class="btn btn-danger btn-sm" href="{% url 'admin-expense-delete' expenses.id %}">Delete</a>
-                    </td>
+                      {% endif %}
+                      </td>
                   </tr>
-                  {% endfor %}             
+                  {% endfor %}   
                 </tbody>
+                
               </table>
+              {% else %} 
+                <strong style="text-align: center; color:brown;"> There are No Available Expenditure to Display </strong> 
+                {% endif %}
 
               <div class="row">
                 <div class="col-md-12">

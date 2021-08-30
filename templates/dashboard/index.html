@@ -43,27 +43,27 @@
             <table class="table bg-white">
                 <thead class="bg-info text-white">
                   <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Category</th>
-                    <th scope="col">Amount</th>
-                    <th scope="col">Remark</th>
-                    <th scope="col">Exp. Date</th>
-                    <th scope="col">Action</th>
+                    <th scope="col" style="color: white;">#</th>
+                    <th scope="col" style="color: white;">Description</th>
+                    <th scope="col" style="color: white;">Category</th>
+                    <th scope="col" style="color: white;">Amount</th>
+                    <th scope="col" style="color: white;">Remark</th>
+                    <th scope="col" style="color: white;">Exp. Date</th>
+                    <th scope="col" style="color: white;">Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   {% for income in list_all_income %}
                   <tr>
                     <th scope="row">{{ forloop.counter }}</th>
-                    <td >{{ income.description }}</td>
+                    <td nowrap>{{ income.description }}</td>
                     <td >{{ income.category }}</td>
                     <td nowrap>N{{ income.amount | intcomma }}</td>
                     <td >{{ income.remarks }}</td>
                     <td nowrap>{{ income.date }}</td>
                     
                     <td nowrap>
-                        <a class="btn btn-info btn-sm" href="#">Edit</a>
+                        <a class="btn btn-info btn-sm" href="{% url 'income-update' income.id %}">Edit</a>
                         <a class="btn btn-danger btn-sm" href="{% url 'income-delete' income.id %}">Delete</a>
                     </td>
                   </tr>
