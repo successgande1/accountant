@@ -19,7 +19,7 @@ def show_income_pdf(request):
 
 def pdf_create_report_income(request):
 
-    list_income = Income.objects.all()
+    list_income = Income.objects.order_by('-date')
 
     template_path = 'pdf/pdfreport.html'
 

@@ -44,12 +44,8 @@ def index(request):
     #Count Daily Total Expenses 
     count_expenses = Expenditure.objects.filter(date__year=now.year, date__month=now.month, date__day=now.day).aggregate(count_expenses=Count('date')).get('count_expenses') or 0
 
-
-
     #Query Total Income for current Month in the current Year
     total_income = Income.objects.filter(date__year=now.year, date__month=now.month).aggregate(total_income=Sum('amount')).get('total_income') or 0
-
-    
 
     #Query Expenditure for Total Current Monthly Expenses
     total_monthly_expenses = Expenditure.objects.filter(date__year=now.year, date__month=now.month).aggregate(total_monthly_expenses=Sum('amount')).get('total_monthly_expenses') or 0
