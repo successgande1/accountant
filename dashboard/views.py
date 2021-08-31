@@ -97,7 +97,7 @@ def user_income_delete(request,pk):
 #Method for Deleting Income Item
 @login_required(login_url='cashier-login')
 def user_expense_delete(request,pk):
-    expense_item = Expenditure.objects.get(id=pk)
+    expense_item = Expenditure.objects.get(id=pk) 
     if request.method == "POST":
         expense_item.delete()
         expense_descrip = expense_item.description

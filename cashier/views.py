@@ -123,6 +123,24 @@ def UpdateIncome(request, pk):
     }
     return render(request, 'cashier/income_update.html', context)
 
+#Method for Updating Expenditure Item
+@login_required(login_url='cashier-login')
+def Updateexpense(request, pk):
+    expense_item = Expenditure.objects.get(id=pk)
+    if request.method == "POST":
+        expense_update_form = ExpenseUpdate(request.POST, instance=expense_item)
+        if expense_update_form.is_valid():
+            expense_update_form.save()
+            messages.success(request, f'{expense_item} information Updated Successfully')
+            return redirect('user-list-expenses')
+    else:
+        expense_update_form = ExpenseUpdate(instance=expense_item)
+    context = {
+        'expense_update_form':expense_update_form,
+        'expense_item':expense_item,
+    }
+    return render(request, 'cashier/expense_update.html', context)
+
 #List Expenses method
 @login_required(login_url='cashier-login')
 def list_Expense(request):
