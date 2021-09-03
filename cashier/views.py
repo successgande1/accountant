@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from .forms import CreateUserForm, UserUpdateForm, ProfileUpdateForm
-from dashboard .forms import ExpensesForm, IncomeForm, IncomeUpdate, ExpenseUpdate
+from dashboard .forms import ExpensesForm, IncomeForm, IncomeUpdate, ExpenseUpdate, IncomeSearchForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -177,6 +177,32 @@ def list_Income(request):
     }
 
     return render(request, 'cashier/list_income.html', context)
+
+#Income Search Date Range Method
+@login_required(login_url='cashier-login')
+def SearchIncomeRange(request):
+    listIncome = Income.objects.all()
+    searchForm = IncomeSearchForm(request.POST or None)
+
+    if request.method == 'POST':
+        listIncome = Income.objects.filter(
+        description__icontains=searchForm['description'].value(),
+        date__range=[
+                                searchForm['start_date'].value(),
+                                searchForm['end_date'].value()
+                            ]
+        )
+    else:
+        searchForm = IncomeSearchForm()
+    paginator = Paginator(listIncome, 5)
+    page = request.GET.get('page')
+    paged_income = paginator.get_page(page)
+    context = {
+        'listIncome':paged_income,
+        'searchForm':searchForm,
+    }
+    
+    return render(request, 'cashier/search_income_range.html', context)
 
 
 #View Monthly Income method

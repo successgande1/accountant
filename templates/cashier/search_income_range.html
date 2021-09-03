@@ -1,0 +1,170 @@
+{% extends 'dashboard_base.html' %}
+
+{% block title %} User | Search Income {% endblock %}
+
+{% load static %}
+
+{% load humanize %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+
+
+<!-- Left sidebar menu start -->
+{% include 'partials/_LeftSideBar.html' %}
+<!-- Left sidebar menu end -->
+
+<main class="ttr-wrapper">
+    <div class="container-fluid">
+        <div class="db-breadcrumb">
+            <h4 class="breadcrumb-title" style="color: rgb(4, 149, 16);">Hello! {{ user.username }} </h4>
+            <ul class="db-breadcrumb-list">
+                <li><a href="#"><i class="fa fa-home"></i>Home</a></li>
+                <li style="color: blue;">Search Income</li>
+            </ul>
+        </div>	
+
+        <!--Check if User is login and is also a staff and a superuser-->
+        {% if user.is_authenticated and user.is_staff and user.is_superuser %}
+        
+        <!-- Card -->
+        {% include 'partials/_cards.html' %}
+        <!-- Card END -->
+
+        {% include 'partials/_user_list.html' %}
+        
+
+        {% else %}
+
+        <div class="col-lg-12 m-b30">
+                {% include 'partials/_alerts.html' %}
+                <div class="col-md-12">
+                   
+                                <form class="edit-profile m-b30" method="POST">
+                                    {% csrf_token %}
+
+                                    {{ searchForm | crispy }}
+                            
+                                    <input class="btn btn-success" type="submit" value="Search Income">
+
+                                </form>
+                            
+                    
+                </div>
+        </div>
+                <div class="col-md-8">
+                    {% if listIncome %}
+                      <table class="table bg-white">
+                          <thead class="bg-info text-white">
+                            <tr>
+                              <th scope="col">#</th>
+                              <th scope="col" style="color: white;">Description</th>
+                              <th scope="col" style="color: white;">Category</th>
+                              <th scope="col" style="color: white;">Amount</th>
+                              <th scope="col" style="color: white;">Remark</th>
+                              <th scope="col" style="color: white;">Exp. Date</th>
+                              <th scope="col" style="color: white;">Action</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            
+          
+                            {% for income in listIncome %}
+                            <tr>
+                              <th scope="row">{{ forloop.counter }}</th>
+                              <td >{{ income.description }}</td>
+                              <td nowrap>{{ income.category }}</td>
+                              <td nowrap>N{{ income.amount | intcomma }}</td>
+                              <td >{{ income.remarks }}</td>
+                              <td nowrap>{{ income.date }}</td>
+                              
+                              <td nowrap>
+                                {% if user.is_authenticated and user.is_staff and user.is_superuser %}
+                                <a class="btn btn-info btn-sm" href="#" target="_blank">Print</a>
+          
+                                {% else %}
+                                  <a class="btn btn-info btn-sm" href="{% url 'income-update' income.id %}">Edit</a>
+                                  <a class="btn btn-danger btn-sm" href="{% url 'income-delete' income.id %}">Delete</a> 
+                                {% endif %}
+                              </td>
+                            </tr>
+                            {% endfor %}    
+                            <tr><td nowrap>{{ monthly_total }}</td></tr>    
+                            
+                          </tbody>
+                        </table>
+                        <a class="btn btn-primary" href="{% url 'create-income-pdf' %}" target="_blank">Create PDF</a>
+                        {% else %}     
+                            <strong> There are No Available Income to Display </strong> 
+                        {% endif %}
+          
+                        <!--Pagination Start Here-->
+                            <div class="row">
+                              <div class="col-md-12">
+                                {% if listIncome.has_other_pages %}
+                                <ul class="pagination">
+                                  {% if listIncome.has_previous %}
+                                  <li class="page-item">
+                                    <a href="?page={{listIncome.previous_page_number}}" class="page-link">
+                                      &laquo;
+                                    </a>
+                                  </li>
+                                  {% else %}
+                                  <li class="page-item disabled">
+                                    <a class="page-link">
+                                      &laquo;
+                                    </a>
+                                  </li>
+                                  {% endif %}
+                                  {% for i in listIncome.paginator.page_range %}
+                      
+                                  {% if listIncome.number == i %}
+                      
+                                  <li class="page-item active">
+                                    <a  class="page-link">
+                                      {{i}}
+                                    </a>
+                                  </li>
+                      
+                                  {% else %}
+                      
+                                  <li class="page-item">
+                                    <a href="?page={{i}}" class="page-link">{{i}}</a>
+                                  </li>
+                      
+                                  {% endif %}
+                      
+                                  {% endfor %}
+                      
+                                  {% if listIncome.has_next %}
+                                  <li class="page-item">
+                                    <a href="?page={{listIncome.next_page_number}}" class="page-link">
+                                      &raquo;
+                                    </a>
+                                  </li>
+                                  {% else %}
+                                  <li class="page-item disabled">
+                                    <a class="page-link">
+                                      &raquo;
+                                    </a>
+                                  </li>
+                                  {% endif %}
+                                </ul>
+                                {% endif %}
+                              </div>
+                            </div>
+                          
+                      </div>
+                  </div>
+            </div>
+        
+        {% endif %}
+
+        
+    </div>
+</main>
+
+{% endblock %}
