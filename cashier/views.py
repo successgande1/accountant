@@ -183,23 +183,29 @@ def list_Income(request):
 def SearchIncomeRange(request):
     listIncome = Income.objects.all()
     searchForm = IncomeSearchForm(request.POST or None)
-
+  
+    
     if request.method == 'POST':
-        listIncome = Income.objects.filter(
-        description__icontains=searchForm['description'].value(),
-        date__range=[
-                                searchForm['start_date'].value(),
+        listIncome = Income.objects.filter(date__range=[searchForm['start_date'].value(),
                                 searchForm['end_date'].value()
                             ]
         )
+        
     else:
         searchForm = IncomeSearchForm()
+
+    #listIncome = listIncome 
     paginator = Paginator(listIncome, 5)
     page = request.GET.get('page')
-    paged_income = paginator.get_page(page)
+    paged_listIncome = paginator.get_page(page)
+    
+    #Calculate total amount of Date Range Result
+    total = listIncome.aggregate(total = Sum('amount')).get('total') or 0
+
     context = {
-        'listIncome':paged_income,
+        'listIncome':paged_listIncome,
         'searchForm':searchForm,
+        'total':total,
     }
     
     return render(request, 'cashier/search_income_range.html', context)

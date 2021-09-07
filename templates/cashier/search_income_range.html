@@ -28,17 +28,7 @@
         </div>	
 
         <!--Check if User is login and is also a staff and a superuser-->
-        {% if user.is_authenticated and user.is_staff and user.is_superuser %}
         
-        <!-- Card -->
-        {% include 'partials/_cards.html' %}
-        <!-- Card END -->
-
-        {% include 'partials/_user_list.html' %}
-        
-
-        {% else %}
-
         <div class="col-lg-12 m-b30">
                 {% include 'partials/_alerts.html' %}
                 <div class="col-md-12">
@@ -78,8 +68,9 @@
                               <td >{{ income.description }}</td>
                               <td nowrap>{{ income.category }}</td>
                               <td nowrap>N{{ income.amount | intcomma }}</td>
-                              <td >{{ income.remarks }}</td>
+                              <td nowrap>{{ income.remarks }}</td>
                               <td nowrap>{{ income.date }}</td>
+                              
                               
                               <td nowrap>
                                 {% if user.is_authenticated and user.is_staff and user.is_superuser %}
@@ -92,9 +83,10 @@
                               </td>
                             </tr>
                             {% endfor %}    
-                            <tr><td nowrap>{{ monthly_total }}</td></tr>    
+                               
                             
                           </tbody>
+                          {{total}}
                         </table>
                         <a class="btn btn-primary" href="{% url 'create-income-pdf' %}" target="_blank">Create PDF</a>
                         {% else %}     
@@ -161,7 +153,7 @@
                   </div>
             </div>
         
-        {% endif %}
+       
 
         
     </div>

@@ -37,4 +37,4 @@ class IncomeSearchForm(forms.ModelForm):
     end_date = forms.DateField(required=True, widget = IncomeDateField)
     class Meta:
         model = Income
-        fields = [ 'description', 'start_date', 'end_date']
+        fields = ['start_date', 'end_date']
