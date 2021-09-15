@@ -16,7 +16,6 @@
                     <tr>
                       <th scope="col">#</th>
                       <th scope="col" style="color:black;">Description</th>
-                      <th scope="col" style="color: black;">Category</th>
                       <th scope="col" style="color: black;">Amount</th>
                       <th scope="col" style="color: black;">Remark</th>
                       <th scope="col" style="color: black;">Income Date</th>
@@ -29,14 +28,16 @@
                     <tr>
                       <th scope="row">{{ forloop.counter }}</th>
                       <td style="text-align: center;">{{ income.description }}</td>
-                      <td style=" text-align: center;">{{ income.category }}</td>
                       <td style=" text-align: center;">N{{ income.amount }}</td>
                       <td style=" text-align: center;">{{ income.remarks }}</td>
                       <td style=" text-align: center;">{{ income.date }}</td>
                     </tr>
                     {% endfor %}    
-                    <tr><td >{{ monthly_total }}</td></tr>    
-                    
+                    <tr>
+                      <td></td>
+                      <td style="color: brown;">Total Searched: </td>
+                      <td style="color: green; background-color:grey;"> N{{total}}</td>
+                    </tr>
                   </tbody>
                 </table>
                

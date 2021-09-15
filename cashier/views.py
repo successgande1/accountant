@@ -1,3 +1,4 @@
+from django.core import paginator
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from .forms import CreateUserForm, UserUpdateForm, ProfileUpdateForm
@@ -163,9 +164,16 @@ def list_Income(request):
     #Query Income List
     list_income = Income.objects.order_by('-date')
 
-    paginator = Paginator(list_income, 5)
+    paginator = Paginator(list_income, 5) #posts per page
+	
     page = request.GET.get('page')
-    paged_income = paginator.get_page(page)
+
+    try:
+	    queryset = paginator.page(page)
+    except PageNotAnInteger:
+	    queryset = paginator.page(1)
+    except EmptyPage:
+	    queryset = paginator.page(paginator.num_pages)
 
      #Get Day of today from current date and time
     #now = datetime.datetime.now()
@@ -173,7 +181,7 @@ def list_Income(request):
     #monthly_total = Income.objects.filter(date__year=now.year, date__month=now.month).aggregate(monthly_total=Sum('amount'))['monthly_total']
 
     context = {
-        'list_income':paged_income,
+        'list_income':queryset,
     }
 
     return render(request, 'cashier/list_income.html', context)
@@ -181,26 +189,27 @@ def list_Income(request):
 #Income Search Date Range Method
 @login_required(login_url='cashier-login')
 def SearchIncomeRange(request):
+    context = {}
     searchForm = IncomeSearchForm(request.POST or None)
     if searchForm:
         listIncome = Income.objects.filter(date__range=[searchForm['start_date'].value(),searchForm['end_date'].value()])
+
     else:
         listIncome = Income.objects.all()
-
 
     paginator = Paginator(listIncome, 5)
     page = request.GET.get('page')
     paged_listIncome = paginator.get_page(page)
-
+    
     #Calculate total amount of Date Range Result
     total = listIncome.aggregate(total = 
     Sum('amount')).get('total') or 0
 
-    context = {
+    context.update({
     'listIncome':paged_listIncome,
     'searchForm':searchForm,
     'total':total,
-    }
+    })
 
     return render(request, 'cashier/search_income_range.html',context)
 

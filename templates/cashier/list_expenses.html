@@ -29,7 +29,8 @@
 
         
         {% include 'partials/_alerts.html' %}	
-        <div class="col-md-8">
+
+        <div class="table-responsive mb-4">
           {% if list_expenses %}
             <table class="table bg-white">
                 <thead class="bg-info text-white">
@@ -73,7 +74,7 @@
                 <strong style="text-align: center; color:brown;"> There are No Available Expenditure to Display </strong> 
                 {% endif %}
 
-              <div class="row">
+              <div class="d-flex justify-centent-center">
                 <div class="col-md-12">
                   {% if list_expenses.has_other_pages %}
                   <ul class="pagination">

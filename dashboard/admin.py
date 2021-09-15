@@ -14,7 +14,7 @@ class ExpenditureAdmin(admin.ModelAdmin):
 
 #Customize The Display of Model in a Table inside the Admin Pannel
 class IncomeAdmin(admin.ModelAdmin):
-    list_display = ('id', 'description', 'category', 'staff', 'amount', 'date', 'addedDate')
+    list_display = ('id', 'description', 'staff', 'amount', 'date', 'addedDate')
 
 # Register your models here and also pass your class Admin for List Display if available.
 admin.site.register(Expenditure, ExpenditureAdmin)

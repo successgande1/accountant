@@ -30,6 +30,7 @@ urlpatterns = [
     path('income/list/pdf/', pdf_view.show_income_pdf, name = 'list-income-pdf' ),
     path('income/search/date/', cashier_view.SearchIncomeRange, name = 'income-search-date' ),
     path('income/list/create-pdf/', pdf_view.pdf_create_report_income, name = 'create-income-pdf' ),
+    path('income/list/date/create-pdf/', pdf_view.pdf_create_report_income_by_date, name = 'income-date-pdf' ),
     path('register/', cashier_view.register, name = 'user-add'),
     path('profile/', cashier_view.profile, name = 'user-profile'),
     path('expenses/', cashier_view.AddExpenses, name = 'user-add-expenses'),

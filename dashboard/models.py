@@ -20,12 +20,9 @@ CATEGORY_INCOME = (
 )
 
 CATEGORY_EXPENSES = (
-    ('Stationaries', 'Stationaries'),
-    ('Family Up Keep', 'Family Up Keep'),
-    ('Airtime Recharge', 'Airtime Recharge'),
-    ('Repairs', 'Repairs'),
-    ('Staff Salary', 'Staff Salary'),
-    ('Maintainance', 'Maintainance'),
+    ('Income', 'Income'),
+    ('Saving', 'Saving'),
+    ('Debt', 'Debt'),
 )
 
 class Expenditure(models.Model):  
@@ -47,7 +44,6 @@ class Expenditure(models.Model):
 
 class Income(models.Model): 
     description = models.CharField(max_length=100, null=False)
-    category = models.CharField(max_length=100, choices=CATEGORY_INCOME, null=True)
     staff = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     amount = models.PositiveIntegerField(null=False)
     remarks = models.CharField(max_length=120, null=True)
